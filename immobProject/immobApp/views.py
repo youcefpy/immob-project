@@ -10,21 +10,18 @@ from .models import Inscription
 def inscription(request) :
     if request.method == "POST":
         form = IntegrationForm(request.POST)
-        value_token = form.cleaned_data['id_inscription']
-        data_inscription = Inscription.objects.filter()
         if form.is_valid():
-        
             form.save()
+            data_inscription = Inscription.objects.last()            
             lines = []
-
-            for data in data_inscription:
-                lines.append( "nom : " + data.nom)
-                lines.append(data.prenom)
-                lines.append(data.email)
-                lines.append(data.numero_tel)
-                lines.append(data.ville)
-                lines.append(data.id_inscription)
-                lines.append("=========================================")
+   
+            lines.append( "nom : " + data_inscription.nom)
+            lines.append("prenom :=> "+data_inscription.prenom)
+            lines.append("email =>" + data_inscription.email)
+            lines.append("Numero tel => " +data_inscription.numero_tel)
+            lines.append("Ville =>" +data_inscription.ville)
+            lines.append("Id_Inscription =>"+data_inscription.id_inscription)
+            lines.append("=========================================")
 
 
             buffer = BytesIO()
@@ -37,6 +34,8 @@ def inscription(request) :
             pdf_object.showPage()
             pdf_object.save()
             buffer.seek(0)
+
+            
             return FileResponse(buffer,as_attachment=True,filename="test.pdf")
         
     else : 
