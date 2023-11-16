@@ -16,6 +16,7 @@ class Inscription(models.Model):
         editable=False,
         default='IMOBDZFR' + str(uuid.uuid4())[:8].upper()
     )
+    
 
     def __str__(self):
 

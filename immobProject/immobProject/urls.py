@@ -20,4 +20,5 @@ from immobApp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('inscription/',views.inscription,name = "inscription"),
+    path("inscription_pdf_file/",views.pdf_view,name="inscription_pdf_file"),
 ]
